@@ -1,13 +1,18 @@
 import { useState } from 'react'
 import HeroSlider from '../components/HeroSlider'
 import Sidebar from '../components/Sidebar'
+import { useSanityQuery } from '../hooks/useSanity'
+import { queries } from '../lib/sanity'
 
 export default function Enquiry() {
   const [showAvailability, setShowAvailability] = useState(false)
+  const { data: page } = useSanityQuery<any>(queries.pageBySlug('make-an-enquiry'), null)
+
+  const sliderImages = page?.heroImages?.length ? page.heroImages : ['/images/brandon-bay.jpg']
 
   return (
     <>
-      <HeroSlider images={['/images/brandon-bay.jpg']} />
+      <HeroSlider images={sliderImages} />
 
       <div className="page-section">
         <div className="container">
@@ -50,22 +55,10 @@ export default function Enquiry() {
                   <label>Do you wish to enquire about availability?</label>
                   <div className="radio-group">
                     <label>
-                      <input
-                        type="radio"
-                        name="availability"
-                        value="yes"
-                        onChange={() => setShowAvailability(true)}
-                      />{' '}
-                      Yes
+                      <input type="radio" name="availability" value="yes" onChange={() => setShowAvailability(true)} /> Yes
                     </label>
                     <label>
-                      <input
-                        type="radio"
-                        name="availability"
-                        value="no"
-                        onChange={() => setShowAvailability(false)}
-                      />{' '}
-                      No
+                      <input type="radio" name="availability" value="no" onChange={() => setShowAvailability(false)} /> No
                     </label>
                   </div>
                 </div>
@@ -76,15 +69,12 @@ export default function Enquiry() {
                       <label htmlFor="arrivalDate">Preferred arrival date</label>
                       <input type="date" id="arrivalDate" name="arrivalDate" />
                     </div>
-
                     <div className="form-row">
                       <div className="form-group">
                         <label htmlFor="nights">Number of nights</label>
                         <select id="nights" name="nights">
                           {Array.from({ length: 14 }, (_, i) => i + 1).map((n) => (
-                            <option key={n} value={n}>
-                              {n}
-                            </option>
+                            <option key={n} value={n}>{n}</option>
                           ))}
                         </select>
                       </div>
@@ -92,9 +82,7 @@ export default function Enquiry() {
                         <label htmlFor="guests">Number of guests</label>
                         <select id="guests" name="guests">
                           {Array.from({ length: 6 }, (_, i) => i + 1).map((n) => (
-                            <option key={n} value={n}>
-                              {n}
-                            </option>
+                            <option key={n} value={n}>{n}</option>
                           ))}
                         </select>
                       </div>
@@ -107,13 +95,10 @@ export default function Enquiry() {
                   <textarea id="message" name="message" />
                 </div>
 
-                <button type="submit" className="btn-submit">
-                  Submit
-                </button>
+                <button type="submit" className="btn-submit">Submit</button>
               </form>
             </div>
-
-            <Sidebar />
+            <Sidebar mapImage={page?.sidebarMap} />
           </div>
         </div>
       </div>

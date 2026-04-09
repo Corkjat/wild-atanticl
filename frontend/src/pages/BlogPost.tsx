@@ -1,75 +1,51 @@
 import { useParams, Link } from 'react-router-dom'
 import { useSanityQuery } from '../hooks/useSanity'
-import { queries } from '../lib/sanity'
+import { queries, urlFor } from '../lib/sanity'
 import PortableText from '../components/PortableText'
 import blogPostsStatic from '../data/blogPosts'
 
-interface SanityBlogPost {
-  _id: string
-  title: string
-  slug: string
-  date: string
-  author: string
-  category: string
-  alt: string
-  excerpt: string
-  content: any[]
-}
-
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>()
-
-  // Try Sanity first
-  const { data: sanityPost, loading } = useSanityQuery<SanityBlogPost | null>(
+  const { data: post, loading } = useSanityQuery<any>(
     queries.blogPostBySlug(slug || ''),
     null
   )
-
-  // Static fallback
   const staticPost = blogPostsStatic.find((p) => p.slug === slug)
 
   if (loading) {
     return (
       <div className="page-section">
-        <div className="container">
-          <p>Loading...</p>
-        </div>
+        <div className="container"><p>Loading...</p></div>
       </div>
     )
   }
 
-  // Use Sanity data if available, otherwise static
-  if (sanityPost) {
-    const dateFormatted = new Date(sanityPost.date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
+  if (post) {
+    const dateFormatted = new Date(post.date).toLocaleDateString('en-US', {
+      year: 'numeric', month: 'short', day: 'numeric',
     })
-
-    // Find matching static post for the image
-    const matchingStatic = blogPostsStatic.find((p) => p.slug === slug)
+    const imageSrc = post.image?.asset
+      ? urlFor(post.image).width(800).url()
+      : staticPost?.image || ''
 
     return (
       <div className="page-section">
         <div className="container">
           <article className="blog-detail">
-            <h1 className="blog-detail-title">{sanityPost.title}</h1>
+            <h1 className="blog-detail-title">{post.title}</h1>
             <div className="blog-card-meta" style={{ marginBottom: 20 }}>
-              by {sanityPost.author} | {dateFormatted} | {sanityPost.category}
+              by {post.author} | {dateFormatted} | {post.category}
             </div>
-
-            {matchingStatic && (
+            {imageSrc && (
               <div className="blog-detail-image">
-                <img src={matchingStatic.image} alt={sanityPost.alt} />
+                <img src={imageSrc} alt={post.alt} />
               </div>
             )}
-
             <div className="blog-detail-content">
-              <PortableText blocks={sanityPost.content} />
+              <PortableText blocks={post.content} />
             </div>
-
             <div className="blog-detail-nav">
-              <Link to="/our-blog">← Back to Blog</Link>
+              <Link to="/our-blog">&larr; Back to Blog</Link>
             </div>
           </article>
         </div>
@@ -77,15 +53,12 @@ export default function BlogPost() {
     )
   }
 
-  // Fallback to static
   if (!staticPost) {
     return (
       <div className="page-section">
         <div className="container">
           <h2>Post not found</h2>
-          <p>
-            <Link to="/our-blog">← Back to Blog</Link>
-          </p>
+          <p><Link to="/our-blog">&larr; Back to Blog</Link></p>
         </div>
       </div>
     )
@@ -99,19 +72,14 @@ export default function BlogPost() {
           <div className="blog-card-meta" style={{ marginBottom: 20 }}>
             by {staticPost.author} | {staticPost.date} | {staticPost.category}
           </div>
-
           <div className="blog-detail-image">
             <img src={staticPost.image} alt={staticPost.alt} />
           </div>
-
           <div className="blog-detail-content">
-            {staticPost.content.map((paragraph, i) => (
-              <p key={i}>{paragraph}</p>
-            ))}
+            {staticPost.content.map((p, i) => <p key={i}>{p}</p>)}
           </div>
-
           <div className="blog-detail-nav">
-            <Link to="/our-blog">← Back to Blog</Link>
+            <Link to="/our-blog">&larr; Back to Blog</Link>
           </div>
         </article>
       </div>

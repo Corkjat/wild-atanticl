@@ -1,45 +1,56 @@
 import { Link } from 'react-router-dom'
+import { useSiteSettings } from '../hooks/useSiteSettings'
+import { urlFor } from '../lib/sanity'
 
 export default function Footer() {
+  const { data: settings } = useSiteSettings()
+
+  const wawLogoSrc = settings.wildAtlanticWayLogo
+    ? urlFor(settings.wildAtlanticWayLogo).width(200).url()
+    : '/images/wild-atlantic-way-logo.png'
+
+  const footerLogoSrc = settings.footerLogo
+    ? urlFor(settings.footerLogo).width(180).url()
+    : '/images/footer-logo.png'
+
+  const tripadvisorSrc = settings.tripadvisorLogo
+    ? urlFor(settings.tripadvisorLogo).width(150).url()
+    : '/images/tripadvisor-logo.png'
+
   return (
     <>
-      {/* Pre-Footer with contact info */}
       <div className="pre-footer">
         <div className="container">
           <div className="pre-footer-logo">
-            <img src="/images/wild-atlantic-way-logo.png" alt="Wild Atlantic Way logo" />
+            <img src={wawLogoSrc} alt="Wild Atlantic Way logo" />
           </div>
           <div className="pre-footer-contact">
             <img
-              src="/images/footer-logo.png"
+              src={footerLogoSrc}
               alt="Wild Atlantic Way Cottage"
               style={{ maxWidth: 180, marginBottom: 10, display: 'block', margin: '0 auto 10px' }}
             />
             <p>
-              Farrantooleen, Stradbally, Castlegregory,
-              <br />
-              Dingle Peninsula, Co Kerry, Ireland V92 TK8K
+              {settings.address.split('\n').map((line, i) => (
+                <span key={i}>{line}{i === 0 && <br />}</span>
+              ))}
+              {' '}{settings.eircode}
             </p>
             <p>
-              Tel: <a href="tel:+353863527678">+353 86 352 7678</a>
+              Tel: <a href={`tel:${settings.phone.replace(/\s/g, '')}`}>{settings.phone}</a>
             </p>
             <p>
-              Email: <a href="mailto:beenoskeekerry@gmail.com">beenoskeekerry@gmail.com</a>
+              Email: <a href={`mailto:${settings.email}`}>{settings.email}</a>
             </p>
           </div>
           <div className="pre-footer-tripadvisor">
-            <a
-              href="https://www.tripadvisor.ie/VacationRentalReview-g211857-d15062162-Wild_Atlantic_Way_Cottage-Castlegregory_Dingle_Peninsula_County_Kerry.html"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src="/images/tripadvisor-logo.png" alt="Wild Atlantic Way Cottage Tripadvisor" />
+            <a href={settings.tripadvisorUrl} target="_blank" rel="noopener noreferrer">
+              <img src={tripadvisorSrc} alt="Wild Atlantic Way Cottage Tripadvisor" />
             </a>
           </div>
         </div>
       </div>
 
-      {/* Footer */}
       <footer className="site-footer">
         <div className="container">
           <p>

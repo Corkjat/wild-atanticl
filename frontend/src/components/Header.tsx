@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useSiteSettings } from '../hooks/useSiteSettings'
+import { urlFor } from '../lib/sanity'
 
 const navItems = [
   { label: 'HOME', path: '/' },
@@ -14,12 +16,17 @@ const navItems = [
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
+  const { data: settings } = useSiteSettings()
+
+  const logoSrc = settings.logo
+    ? urlFor(settings.logo).width(550).url()
+    : '/images/logo.png'
 
   return (
     <header className="site-header">
       <div className="header-top">
         <Link to="/" className="header-logo">
-          <img src="/images/logo.png" alt="Wild Atlantic Way Cottage" />
+          <img src={logoSrc} alt={settings.title || 'Wild Atlantic Way Cottage'} />
         </Link>
       </div>
       <nav className="header-nav">

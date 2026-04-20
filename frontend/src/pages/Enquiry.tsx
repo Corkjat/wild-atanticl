@@ -6,7 +6,7 @@ import { queries } from '../lib/sanity'
 
 export default function Enquiry() {
   const [showAvailability, setShowAvailability] = useState(false)
-  const { data: page } = useSanityQuery<any>(queries.pageBySlug('make-an-enquiry'), null)
+  const { data: page } = useSanityQuery<any>(queries.pageBySlug('enquiry'), null)
 
   const sliderImages = page?.heroImages?.length ? page.heroImages : ['/images/brandon-bay.jpg']
 

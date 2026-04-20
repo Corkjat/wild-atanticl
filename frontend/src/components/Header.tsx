@@ -5,12 +5,10 @@ import { urlFor } from '../lib/sanity'
 
 const navItems = [
   { label: 'HOME', path: '/' },
-  { label: 'THE COTTAGE', path: '/castlegregory-house-rental' },
-  { label: 'ACTIVITIES IN THE AREA', path: '/things-to-do-in-castlegregory' },
+  { label: 'HOUSE DESCRIPTION', path: '/house-description' },
+  { label: 'ACTIVITIES IN THE AREA', path: '/activities' },
   { label: 'GALLERY', path: '/gallery' },
-  { label: 'RATES', path: '/rates' },
-  { label: 'OUR BLOG', path: '/our-blog' },
-  { label: 'MAKE AN ENQUIRY', path: '/make-an-enquiry' },
+  { label: 'ENQUIRY', path: '/enquiry' },
 ]
 
 export default function Header() {

@@ -22,7 +22,7 @@ export default function Sidebar({ mapImage }: SidebarProps) {
           <img src={mapSrc} alt="Find our Cottage" />
         </a>
       </div>
-      <Link to="/make-an-enquiry" className="btn-enquiry">
+      <Link to="/enquiry" className="btn-enquiry">
         MAKE AN ENQUIRY
       </Link>
     </div>

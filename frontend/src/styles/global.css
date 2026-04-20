@@ -784,6 +784,165 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================
+   Landing Page
+   ============================================ */
+
+.landing-headline {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 32px;
+  color: #3a6f8f;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.landing-subheadline {
+  font-size: 18px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 30px;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.landing-intro {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.landing-intro p {
+  margin-bottom: 15px;
+  line-height: 1.8;
+}
+
+/* ============================================
+   Map Section
+   ============================================ */
+
+.map-section {
+  padding: 60px 0;
+  background: #f7f7f7;
+}
+
+.map-container {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   Testimonials
+   ============================================ */
+
+.testimonials-section {
+  padding: 60px 0;
+  background: #fff;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.testimonial-card {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 30px;
+  border: 1px solid #eee;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.testimonial-stars {
+  color: #f5a623;
+  font-size: 18px;
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+}
+
+.testimonial-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #555;
+  font-style: italic;
+  margin: 0 0 20px;
+  border: none;
+  padding: 0;
+}
+
+.testimonial-author {
+  font-size: 14px;
+  color: #333;
+}
+
+.testimonial-author span {
+  color: #999;
+  font-size: 13px;
+}
+
+/* ============================================
+   Contact Section
+   ============================================ */
+
+.contact-section {
+  padding: 60px 0;
+  background: #3a6f8f;
+  color: #fff;
+}
+
+.contact-section .section-title {
+  color: #fff;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.contact-card {
+  text-align: center;
+  padding: 30px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+}
+
+.contact-icon {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.contact-card h3 {
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.contact-card p {
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.contact-card a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.contact-card a:hover {
+  color: #ddd;
+}
+
+/* ============================================
    Responsive
    ============================================ */
 
@@ -845,5 +1004,17 @@ h1, h2, h3, h4, h5, h6 {
   .page-section::before,
   .page-section::after {
     display: none;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-headline {
+    font-size: 24px;
   }
 }

@@ -15,7 +15,7 @@ const topImages = [
 ]
 
 export default function Activities() {
-  const { data: page } = useSanityQuery<any>(queries.pageBySlug('things-to-do-in-castlegregory'), null)
+  const { data: page } = useSanityQuery<any>(queries.pageBySlug('activities'), null)
 
   const content = page?.content || []
   const soMuchIndex = content.findIndex((b: any) =>

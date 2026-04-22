@@ -1,8 +1,11 @@
 import HeroSlider from '../components/HeroSlider'
 import Testimonials from '../components/Testimonials'
+import PortableText from '../components/PortableText'
 import { useSiteSettings } from '../hooks/useSiteSettings'
+import { useSanityQuery } from '../hooks/useSanity'
+import { queries } from '../lib/sanity'
 
-const sliderImages = [
+const fallbackSlider = [
   '/images/slider-beach.jpg',
   '/images/slider-exterior.jpg',
   '/images/slider-castlegregory.jpg',
@@ -12,31 +15,32 @@ const sliderImages = [
 
 export default function Landing() {
   const { data: settings } = useSiteSettings()
+  const { data: page } = useSanityQuery<any>(queries.pageBySlug('home'), null)
+
+  const sliderImages = page?.heroImages?.length ? page.heroImages : fallbackSlider
+  const overlayImage = page?.heroOverlayImage || '/images/home-text.png'
+  const headline = page?.headline || 'Welcome to the Wild Atlantic Way Cottage'
+  const subheadline =
+    page?.subheadline ||
+    'A modern and newly refurbished cottage on the Dingle Peninsula, between Beenoskee mountain and the Atlantic Ocean.'
+  const mapEmbedUrl =
+    page?.mapEmbedUrl ||
+    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2456.8!2d-10.05!3d52.22!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDEzJzEyLjAiTiAxMMKwMDMnMDAuMCJX!5e0!3m2!1sen!2sie!4v1600000000000!5m2!1sen!2sie'
 
   return (
     <>
-      {/* 1. Hero Banner with rotating photos */}
-      <HeroSlider images={sliderImages} overlayImage="/images/home-text.png" />
+      {/* 1. Hero Banner */}
+      <HeroSlider images={sliderImages} overlayImage={overlayImage} />
 
       {/* 2. Headline + Intro Text */}
       <div className="page-section">
         <div className="container">
           <div className="landing-intro">
-            <h1 className="landing-headline">
-              Welcome to the Wild Atlantic Way Cottage
-            </h1>
-            <p className="landing-subheadline">
-              A modern and newly refurbished cottage on the Dingle Peninsula, between
-              Beenoskee mountain and the Atlantic Ocean.
-            </p>
-            <p>
-              Wild Atlantic Way Cottage offers the perfect location to enjoy the holiday of
-              your dreams. Nestled on the Dingle Peninsula, this dwelling is perfectly located
-              on the road to the beach. The Cottage presents a golden opportunity to absorb the
-              natural and stunning beauty of its surroundings. If you wish to have a nice and
-              peaceful holiday with a variety of tranquil walks, and at the same time having the
-              choice to enjoy the amenities of the area, then this is the place for you.
-            </p>
+            <h1 className="landing-headline">{headline}</h1>
+            <p className="landing-subheadline">{subheadline}</p>
+            {page?.content && page.content.length > 0 ? (
+              <PortableText blocks={page.content} />
+            ) : null}
           </div>
         </div>
       </div>
@@ -47,7 +51,7 @@ export default function Landing() {
           <h2 className="section-title">Find our Cottage</h2>
           <div className="map-container">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2456.8!2d-10.05!3d52.22!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDEzJzEyLjAiTiAxMMKwMDMnMDAuMCJX!5e0!3m2!1sen!2sie!4v1600000000000!5m2!1sen!2sie"
+              src={mapEmbedUrl}
               width="100%"
               height="400"
               style={{ border: 0, borderRadius: 8 }}
@@ -72,10 +76,12 @@ export default function Landing() {
               <div className="contact-icon">📍</div>
               <h3>Address</h3>
               <p>
-                Farrantooleen, Stradbally, Castlegregory,
-                <br />
-                Dingle Peninsula, Co Kerry, Ireland
-                <br />
+                {settings.address.split('\n').map((line, i) => (
+                  <span key={i}>
+                    {line}
+                    <br />
+                  </span>
+                ))}
                 {settings.eircode}
               </p>
             </div>

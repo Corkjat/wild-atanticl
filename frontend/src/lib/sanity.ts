@@ -28,8 +28,11 @@ export const queries = {
 
   pageBySlug: (slug: string) =>
     `*[_type == "page" && slug.current == "${slug}"][0]{
-      _id, title, "slug": slug.current, heroImages, heroOverlayImage,
-      content, sidebarMap, features, notices
+      _id, title, "slug": slug.current,
+      headline, subheadline, mapEmbedUrl,
+      heroImages, heroOverlayImage,
+      content, sidebarMap, features, notices,
+      activityImages[]{alt, image}
     }`,
 
   rates: `*[_type == "rate"] | order(order asc){

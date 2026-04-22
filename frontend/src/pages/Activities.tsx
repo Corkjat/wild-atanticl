@@ -1,9 +1,9 @@
 import Sidebar from '../components/Sidebar'
 import PortableText from '../components/PortableText'
 import { useSanityQuery } from '../hooks/useSanity'
-import { queries } from '../lib/sanity'
+import { queries, urlFor } from '../lib/sanity'
 
-const topImages = [
+const fallbackImages = [
   { src: '/images/windsurfing-kerry.jpg', alt: 'Windsurfing Kerry' },
   { src: '/images/standing-stone.jpg', alt: 'Standing stone' },
   { src: '/images/kerry-kitesurfing.jpg', alt: 'Kerry kitesurfing' },
@@ -24,24 +24,36 @@ export default function Activities() {
   const topContent = soMuchIndex > 0 ? content.slice(0, soMuchIndex) : content
   const bottomContent = soMuchIndex > 0 ? content.slice(soMuchIndex) : []
 
+  // Build image list from Sanity or fallback
+  const images = page?.activityImages?.length
+    ? page.activityImages.map((a: any, i: number) => ({
+        key: `sanity-${i}`,
+        src: a.image ? urlFor(a.image).width(600).height(400).url() : '',
+        alt: a.alt || 'Activity',
+      }))
+    : fallbackImages.map((img, i) => ({ key: `static-${i}`, ...img }))
+
   return (
     <>
       <div className="page-section">
         <div className="container">
           <div className="two-col">
             <div className="col-main">
-              {page ? (
+              {page?.content ? (
                 <PortableText blocks={topContent} />
               ) : (
                 <>
                   <h2 className="section-title">Things to do in Castlegregory</h2>
-                  <p>In the Maharees Peninsula you can experience Scuba Diving and explore the wonders that lay under the ocean around the islands.</p>
+                  <p>
+                    In the Maharees Peninsula you can experience Scuba Diving and explore the wonders
+                    that lay under the ocean around the islands.
+                  </p>
                 </>
               )}
 
               <div className="activities-images">
-                {topImages.map((img) => (
-                  <img key={img.src} src={img.src} alt={img.alt} />
+                {images.map((img: any) => (
+                  <img key={img.key} src={img.src} alt={img.alt} />
                 ))}
               </div>
             </div>
@@ -62,7 +74,10 @@ export default function Activities() {
         <div className="so-much-section">
           <div className="container">
             <h2 className="section-title">So much to do!</h2>
-            <p>The town of Dingle provides the gateway to more exotic scenery and leads you on to the breathtaking scenery on the Slea Head Drive.</p>
+            <p>
+              The town of Dingle provides the gateway to more exotic scenery and leads you on to the
+              breathtaking scenery on the Slea Head Drive.
+            </p>
           </div>
         </div>
       )}

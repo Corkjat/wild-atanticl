@@ -1,6 +1,5 @@
-import siteSettings from './siteSettings'
-import page from './page'
-import testimonial from './testimonial'
+import heroImage from './heroImage'
 import galleryImage from './galleryImage'
+import testimonial from './testimonial'
 
-export const schemaTypes = [siteSettings, page, testimonial, galleryImage]
+export const schemaTypes = [heroImage, galleryImage, testimonial]

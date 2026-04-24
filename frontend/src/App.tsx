@@ -6,15 +6,16 @@ import HouseDescription from './pages/HouseDescription'
 import Activities from './pages/Activities'
 import Gallery from './pages/Gallery'
 import Enquiry from './pages/Enquiry'
+import './styles/global.css'
 
 function App() {
   return (
-    <div className="site">
+    <div>
       <Header />
-      <main className="site-content">
+      <main>
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/house-description" element={<HouseDescription />} />
+          <Route path="/house" element={<HouseDescription />} />
           <Route path="/activities" element={<Activities />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/enquiry" element={<Enquiry />} />

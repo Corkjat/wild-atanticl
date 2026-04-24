@@ -1,107 +1,183 @@
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import HeroSlider from '../components/HeroSlider'
-import Testimonials from '../components/Testimonials'
-import PortableText from '../components/PortableText'
-import { useSiteSettings } from '../hooks/useSiteSettings'
-import { useSanityQuery } from '../hooks/useSanity'
-import { queries } from '../lib/sanity'
+import { client } from '../lib/sanity'
 
-const fallbackSlider = [
-  '/images/slider-beach.jpg',
-  '/images/slider-exterior.jpg',
-  '/images/slider-castlegregory.jpg',
-  '/images/slider-cottage.jpg',
-  '/images/slider-kerry-coast.jpg',
+const highlights = [
+  { icon: '🌊', text: 'Uninterrupted sea & mountain views' },
+  { icon: '🏖️', text: 'Just 2km from Inch Beach & Annascaul' },
+  { icon: '🛏️', text: '4 bedrooms · 3 bathrooms · Sleeps 8' },
+  { icon: '🍽️', text: 'Private garden with outdoor dining' },
+  { icon: '📡', text: 'Free Broadband and Sky TV' },
+  { icon: '🚗', text: 'Free parking on premises' },
+]
+
+const distances = [
+  { place: 'Inch Beach', dist: '2 km' },
+  { place: 'Annascaul Village', dist: '2 km' },
+  { place: 'Kerry Airport', dist: '25 mins' },
+  { place: 'Cork & Shannon', dist: '< 2 hours' },
+]
+
+const fallbackTestimonials = [
+  {
+    quote: 'Beautifully renovated brand new house. Stunning views. The best Airbnb I have ever stayed in Ireland. Every amenity you could possibly think of was provided. 5 mins drive to Inch Beach. Highly recommend.',
+    author: 'Aashima', date: 'June 2025',
+  },
+  {
+    quote: 'Just amazing. This has to be one of the nicest Airbnbs we have stayed in to date. The house was spotless, had the most amazing views, and was beautifully decorated. It very much felt like a house built for family holidays.',
+    author: 'Stephen', date: 'August 2025',
+  },
+  {
+    quote: 'The place was absolutely perfect – spotless, beautifully maintained, and exactly as described. The views were stunning. Everything was clean, comfortable, and thoughtfully prepared. I\'d definitely recommend it.',
+    author: 'Ciara', date: 'September 2025',
+  },
+  {
+    quote: 'The house is absolutely stunning, the pictures don\'t do it justice. Such a beautifully laid out place, amazing furniture and bathrooms. The view out the main window is breathtaking. We\'ll definitely come back.',
+    author: 'Mark', date: 'March 2026',
+  },
 ]
 
 export default function Landing() {
-  const { data: settings } = useSiteSettings()
-  const { data: page } = useSanityQuery<any>(queries.pageBySlug('home'), null)
+  const [testimonials, setTestimonials] = useState(fallbackTestimonials)
+  const [active, setActive] = useState(0)
 
-  const sliderImages = page?.heroImages?.length ? page.heroImages : fallbackSlider
-  const overlayImage = page?.heroOverlayImage || '/images/home-text.png'
-  const headline = page?.headline || 'Welcome to the Wild Atlantic Way Cottage'
-  const subheadline =
-    page?.subheadline ||
-    'A modern and newly refurbished cottage on the Dingle Peninsula, between Beenoskee mountain and the Atlantic Ocean.'
-  const mapEmbedUrl =
-    page?.mapEmbedUrl ||
-    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2456.8!2d-10.05!3d52.22!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDEzJzEyLjAiTiAxMMKwMDMnMDAuMCJX!5e0!3m2!1sen!2sie!4v1600000000000!5m2!1sen!2sie'
+  useEffect(() => {
+    client.fetch(`*[_type == "testimonial"] | order(_createdAt asc){ quote, author, date }`)
+      .then((d: any[]) => { if (d.length) setTestimonials(d) })
+      .catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    const t = setInterval(() => setActive(p => (p + 1) % testimonials.length), 7000)
+    return () => clearInterval(t)
+  }, [testimonials.length])
 
   return (
     <>
-      {/* 1. Hero Banner */}
-      <HeroSlider images={sliderImages} overlayImage={overlayImage} />
+      <HeroSlider />
 
-      {/* 2. Headline + Intro Text */}
-      <div className="page-section">
+      {/* Highlights */}
+      <section className="section" style={{ background: 'var(--pale)' }}>
         <div className="container">
-          <div className="landing-intro">
-            <h1 className="landing-headline">{headline}</h1>
-            <p className="landing-subheadline">{subheadline}</p>
-            {page?.content && page.content.length > 0 ? (
-              <PortableText blocks={page.content} />
-            ) : null}
+          <p className="section-label" style={{ textAlign: 'center' }}>Why Stay With Us</p>
+          <h2 className="section-title" style={{ textAlign: 'center' }}>Key Highlights</h2>
+          <div className="divider center" />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '1rem' }}>
+            {highlights.map((h, i) => (
+              <div key={i} style={{
+                background: 'white', padding: '1.5rem', borderRadius: '10px',
+                display: 'flex', alignItems: 'center', gap: '1rem',
+                boxShadow: '0 2px 12px rgba(11,61,94,0.06)',
+                borderLeft: '4px solid var(--blue)',
+              }}>
+                <span style={{ fontSize: '1.6rem', flexShrink: 0 }}>{h.icon}</span>
+                <span style={{ fontSize: '0.92rem', color: 'var(--text)', lineHeight: 1.5 }}>{h.text}</span>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* 3. Map Section */}
-      <div className="map-section">
+      {/* Location */}
+      <section className="section">
         <div className="container">
-          <h2 className="section-title">Find our Cottage</h2>
-          <div className="map-container">
-            <iframe
-              src={mapEmbedUrl}
-              width="100%"
-              height="400"
-              style={{ border: 0, borderRadius: 8 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Wild Atlantic Way Cottage Location"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* 4. Testimonials */}
-      <Testimonials />
-
-      {/* 5. Contact Details */}
-      <div className="contact-section">
-        <div className="container">
-          <h2 className="section-title">Get in Touch</h2>
-          <div className="contact-grid">
-            <div className="contact-card">
-              <div className="contact-icon">📍</div>
-              <h3>Address</h3>
-              <p>
-                {settings.address.split('\n').map((line, i) => (
-                  <span key={i}>
-                    {line}
-                    <br />
-                  </span>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '4rem', alignItems: 'start' }}>
+            <div>
+              <p className="section-label">Where We Are</p>
+              <h2 className="section-title">Location</h2>
+              <div className="divider" />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem' }}>
+                {distances.map((d, i) => (
+                  <div key={i} style={{
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                    padding: '1rem 1.25rem', background: 'var(--pale)', borderRadius: '8px',
+                    borderLeft: '4px solid var(--gold)',
+                  }}>
+                    <span style={{ color: 'var(--text)', fontSize: '0.92rem' }}>{d.place}</span>
+                    <span style={{ color: 'var(--navy)', fontWeight: 700, fontSize: '0.95rem' }}>{d.dist}</span>
+                  </div>
                 ))}
-                {settings.eircode}
+              </div>
+              <p style={{ color: 'var(--muted)', fontSize: '0.88rem', lineHeight: 1.7 }}>
+                Inch West, Annascaul, Co. Kerry, V92P9E8
               </p>
             </div>
-            <div className="contact-card">
-              <div className="contact-icon">📞</div>
-              <h3>Phone</h3>
-              <p>
-                <a href={`tel:${settings.phone.replace(/\s/g, '')}`}>{settings.phone}</a>
-              </p>
-            </div>
-            <div className="contact-card">
-              <div className="contact-icon">✉️</div>
-              <h3>Email</h3>
-              <p>
-                <a href={`mailto:${settings.email}`}>{settings.email}</a>
-              </p>
+            <div style={{ borderRadius: '14px', overflow: 'hidden', boxShadow: '0 8px 30px rgba(11,61,94,0.15)' }}>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10000!2d-10.063!3d52.147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x485b2f4567890abc%3A0x1234567890!2sInch%2C%20Co.%20Kerry%2C%20Ireland!5e0!3m2!1sen!2sie!4v1"
+                width="100%" height="360"
+                style={{ border: 0, display: 'block' }}
+                loading="lazy"
+                title="Inch Beach location"
+              />
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="section" style={{ background: 'var(--navy)' }}>
+        <div className="container" style={{ textAlign: 'center' }}>
+          <p className="section-label">Guest Reviews</p>
+          <h2 className="section-title white">What Our Guests Say</h2>
+          <div className="divider center" />
+          <div style={{ maxWidth: '760px', margin: '0 auto' }}>
+            <div style={{ fontSize: '3.5rem', color: 'var(--gold)', lineHeight: 1, marginBottom: '0.5rem', fontFamily: 'var(--font-heading)' }}>"</div>
+            <p style={{
+              fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)', lineHeight: 1.9,
+              color: 'rgba(255,255,255,0.88)', fontStyle: 'italic', minHeight: '120px',
+            }}>
+              {testimonials[active]?.quote}
+            </p>
+            <p style={{ color: 'var(--gold)', fontWeight: 600, marginTop: '1.5rem', fontSize: '0.95rem' }}>
+              — {testimonials[active]?.author}
+            </p>
+            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem', marginTop: '0.25rem' }}>
+              {testimonials[active]?.date}
+            </p>
+            <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginTop: '2rem' }}>
+              {testimonials.map((_, i) => (
+                <button key={i} onClick={() => setActive(i)} style={{
+                  width: i === active ? '28px' : '8px', height: '8px', borderRadius: '4px',
+                  border: 'none', cursor: 'pointer', padding: 0,
+                  background: i === active ? 'var(--gold)' : 'rgba(255,255,255,0.25)',
+                  transition: 'all 0.3s',
+                }} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact strip */}
+      <section className="section" style={{ background: 'var(--pale)' }}>
+        <div className="container" style={{ textAlign: 'center' }}>
+          <p className="section-label">Get in Touch</p>
+          <h2 className="section-title">Contact Us</h2>
+          <div className="divider center" />
+          <div style={{
+            display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '1.5rem', maxWidth: '800px', margin: '0 auto 3rem',
+          }}>
+            {[
+              { icon: '📍', label: 'Address', lines: ['Inch West, Annascaul', 'Co. Kerry, V92P9E8'] },
+              { icon: '📞', label: 'Phone', lines: ['Michelle', '085 713 4017'] },
+              { icon: '✉️', label: 'Email', lines: ['info@inchbeachhouse.ie'] },
+            ].map((c, i) => (
+              <div key={i} style={{
+                background: 'white', padding: '2rem', borderRadius: '12px',
+                boxShadow: '0 2px 15px rgba(11,61,94,0.07)',
+              }}>
+                <span style={{ fontSize: '2rem' }}>{c.icon}</span>
+                <h4 style={{ color: 'var(--navy)', margin: '0.75rem 0 0.5rem', fontSize: '0.75rem', letterSpacing: '1.5px', textTransform: 'uppercase' }}>{c.label}</h4>
+                {c.lines.map((l, j) => <p key={j} style={{ color: 'var(--muted)', fontSize: '0.88rem', lineHeight: 1.6 }}>{l}</p>)}
+              </div>
+            ))}
+          </div>
+          <Link to="/enquiry" className="btn btn-navy">Make an Enquiry</Link>
+        </div>
+      </section>
     </>
   )
 }

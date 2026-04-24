@@ -7,7 +7,7 @@ export default defineConfig({
   name: 'default',
   title: 'Wild Atlantic Way Cottage',
 
-  projectId: 'pnfbtu62',
+  projectId: '0z0t2ayg',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],

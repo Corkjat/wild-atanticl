@@ -123,4 +123,41 @@ button { font-family: var(--font-body); }
   .container { padding: 0 1.25rem; }
   .section { padding: 3.5rem 0; }
   .hide-mobile { display: none !important; }
+
+  /* Activities cards stack on mobile */
+  .activity-card {
+    grid-template-columns: 1fr !important;
+  }
+  .activity-card-label {
+    order: 0 !important;
+    padding: 2rem !important;
+  }
+  .activity-card-content {
+    order: 1 !important;
+  }
+  .activity-images {
+    grid-template-columns: repeat(2, 1fr) !important;
+    height: 160px !important;
+  }
+
+  /* Enquiry form stacks on mobile */
+  .enquiry-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .form-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Location grid stacks */
+  .location-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Stats bar wraps */
+  .stats-bar {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .stats-bar > div:nth-child(2) {
+    border-right: none !important;
+  }
 }

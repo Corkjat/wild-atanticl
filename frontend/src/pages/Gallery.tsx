@@ -66,7 +66,6 @@ export default function Gallery() {
 
           {filtered.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '5rem 0', color: 'var(--muted)' }}>
-              <p style={{ fontSize: '3rem', marginBottom: '1rem' }}>📸</p>
               <h3 style={{ color: 'var(--navy)', marginBottom: '0.5rem' }}>Photos Coming Soon</h3>
               <p style={{ fontSize: '0.9rem' }}>Add images via your Sanity Studio to populate the gallery.</p>
             </div>

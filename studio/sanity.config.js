@@ -7,7 +7,7 @@ export default defineConfig({
   name: 'default',
   title: 'Inch Beach House',
 
-  projectId: '0z0t2ayg',
+  projectId: 'xb9llqp5',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],

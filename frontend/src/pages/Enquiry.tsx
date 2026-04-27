@@ -54,7 +54,7 @@ export default function Enquiry() {
 
       <section className="section">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '4rem', alignItems: 'start' }}>
+          <div className="enquiry-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '3rem', alignItems: 'start' }}>
 
             {/* Form */}
             <div>
@@ -67,13 +67,12 @@ export default function Enquiry() {
                   background: 'var(--pale)', padding: '3rem', borderRadius: '16px',
                   textAlign: 'center', border: '2px solid var(--border)',
                 }}>
-                  <p style={{ fontSize: '3rem', marginBottom: '1rem' }}>✉️</p>
                   <h3 style={{ color: 'var(--navy)', fontFamily: 'var(--font-heading)', marginBottom: '0.75rem' }}>Enquiry Sent!</h3>
                   <p style={{ color: 'var(--muted)', fontSize: '0.95rem' }}>Thank you — we'll be in touch with you shortly.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
+                  <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
                     <div>
                       <label style={labelStyle}>Your Name *</label>
                       <input type="text" name="name" required value={form.name} onChange={handleChange} style={inputStyle} />
@@ -83,7 +82,7 @@ export default function Enquiry() {
                       <input type="email" name="email" required value={form.email} onChange={handleChange} style={inputStyle} />
                     </div>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
+                  <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
                     <div>
                       <label style={labelStyle}>Check-in Date</label>
                       <input type="date" name="checkIn" value={form.checkIn} onChange={handleChange} style={inputStyle} />
@@ -142,7 +141,6 @@ export default function Enquiry() {
               </div>
 
               <div style={{ background: 'var(--navy)', padding: '2rem', borderRadius: '16px', textAlign: 'center', color: 'white' }}>
-                <p style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>🏡</p>
                 <h3 style={{ color: 'var(--gold)', marginBottom: '0.75rem', fontFamily: 'var(--font-heading)', fontSize: '1.1rem' }}>
                   Book on Airbnb
                 </h3>

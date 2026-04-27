@@ -4,12 +4,12 @@ import HeroSlider from '../components/HeroSlider'
 import { client } from '../lib/sanity'
 
 const highlights = [
-  { icon: '🌊', text: 'Uninterrupted sea & mountain views' },
-  { icon: '🏖️', text: 'Just 2km from Inch Beach & Annascaul' },
-  { icon: '🛏️', text: '4 bedrooms · 3 bathrooms · Sleeps 8' },
-  { icon: '🍽️', text: 'Private garden with outdoor dining' },
-  { icon: '📡', text: 'Free Broadband and Sky TV' },
-  { icon: '🚗', text: 'Free parking on premises' },
+  'Uninterrupted sea & mountain views',
+  'Just 2km from Inch Beach & Annascaul',
+  '4 bedrooms · 3 bathrooms · Sleeps 8',
+  'Private garden with outdoor dining',
+  'Free Broadband and Sky TV',
+  'Free parking on premises',
 ]
 
 const distances = [
@@ -66,13 +66,13 @@ export default function Landing() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '1rem' }}>
             {highlights.map((h, i) => (
               <div key={i} style={{
-                background: 'white', padding: '1.5rem', borderRadius: '10px',
+                background: 'white', padding: '1.25rem 1.5rem', borderRadius: '10px',
                 display: 'flex', alignItems: 'center', gap: '1rem',
                 boxShadow: '0 2px 12px rgba(11,61,94,0.06)',
                 borderLeft: '4px solid var(--blue)',
               }}>
-                <span style={{ fontSize: '1.6rem', flexShrink: 0 }}>{h.icon}</span>
-                <span style={{ fontSize: '0.92rem', color: 'var(--text)', lineHeight: 1.5 }}>{h.text}</span>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--gold)', flexShrink: 0 }} />
+                <span style={{ fontSize: '0.92rem', color: 'var(--text)', lineHeight: 1.5 }}>{h}</span>
               </div>
             ))}
           </div>
@@ -82,7 +82,7 @@ export default function Landing() {
       {/* Location */}
       <section className="section">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '4rem', alignItems: 'start' }}>
+          <div className="location-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '3rem', alignItems: 'start' }}>
             <div>
               <p className="section-label">Where We Are</p>
               <h2 className="section-title">Location</h2>
@@ -161,16 +161,15 @@ export default function Landing() {
             gap: '1.5rem', maxWidth: '800px', margin: '0 auto 3rem',
           }}>
             {[
-              { icon: '📍', label: 'Address', lines: ['Inch West, Annascaul', 'Co. Kerry, V92P9E8'] },
-              { icon: '📞', label: 'Phone', lines: ['Michelle', '085 713 4017'] },
-              { icon: '✉️', label: 'Email', lines: ['info@inchbeachhouse.ie'] },
+              { label: 'Address', lines: ['Inch West, Annascaul', 'Co. Kerry, V92P9E8'] },
+              { label: 'Phone', lines: ['Michelle', '085 713 4017'] },
+              { label: 'Email', lines: ['info@inchbeachhouse.ie'] },
             ].map((c, i) => (
               <div key={i} style={{
                 background: 'white', padding: '2rem', borderRadius: '12px',
                 boxShadow: '0 2px 15px rgba(11,61,94,0.07)',
               }}>
-                <span style={{ fontSize: '2rem' }}>{c.icon}</span>
-                <h4 style={{ color: 'var(--navy)', margin: '0.75rem 0 0.5rem', fontSize: '0.75rem', letterSpacing: '1.5px', textTransform: 'uppercase' }}>{c.label}</h4>
+                <h4 style={{ color: 'var(--navy)', margin: '0 0 0.5rem', fontSize: '0.75rem', letterSpacing: '1.5px', textTransform: 'uppercase' }}>{c.label}</h4>
                 {c.lines.map((l, j) => <p key={j} style={{ color: 'var(--muted)', fontSize: '0.88rem', lineHeight: 1.6 }}>{l}</p>)}
               </div>
             ))}

@@ -5,16 +5,16 @@
 }
 
 :root {
-  --navy:  #0B3D5E;
-  --ocean: #1A7EA8;
-  --blue:  #5BB8D4;
-  --pale:  #E8F4F9;
-  --gold:  #C8A96E;
-  --sand:  #F7F4EE;
-  --text:  #1C2B35;
-  --muted: #5A7080;
+  --navy:  #0F3D4A;
+  --ocean: #1A8BAA;
+  --blue:  #4DBDD6;
+  --pale:  #E4F4F8;
+  --gold:  #C07B30;
+  --sand:  #F5F1E5;
+  --text:  #182A32;
+  --muted: #526E7A;
   --white: #FFFFFF;
-  --border:#D6E8F0;
+  --border:#C4E2EF;
 
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body:    'Inter', system-ui, sans-serif;

@@ -1,8 +1,12 @@
+import {orderRankField, orderRankOrdering} from '@sanity/orderable-document-list'
+
 export default {
   name: 'galleryImage',
   type: 'document',
   title: 'Gallery Image',
+  orderings: [orderRankOrdering],
   fields: [
+    orderRankField({type: 'galleryImage'}),
     { name: 'title', type: 'string', title: 'Title' },
     {
       name: 'image', type: 'image', title: 'Image',
@@ -24,7 +28,6 @@ export default {
         ],
       },
     },
-    { name: 'order', type: 'number', title: 'Display Order' },
   ],
   preview: {
     select: { title: 'title', media: 'image' },

@@ -50,7 +50,7 @@ export const queries = {
       image, alt, excerpt, content
     }`,
 
-  galleryImages: `*[_type == "galleryImage"] | order(order asc){
-    _id, title, image, alt, category, order
+  galleryImages: `*[_type == "galleryImage"] | order(orderRank asc){
+    _id, title, image, alt, category, orderRank
   }`,
 }

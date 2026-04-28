@@ -11,7 +11,7 @@ const links = [
 export default function Footer() {
   return (
     <footer style={{ background: 'var(--navy)', color: 'white' }}>
-      <div className="container" style={{
+      <div className="container footer-grid" style={{
         padding: '4rem 2rem 2rem',
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',

@@ -3,14 +3,21 @@ import { client, urlFor } from '../lib/sanity'
 
 export default function Gallery() {
   const [images, setImages] = useState<any[]>([])
+  const [heroSlide, setHeroSlide] = useState(0)
   const [selected, setSelected] = useState<number | null>(null)
   const [filter, setFilter] = useState('All')
 
   useEffect(() => {
-    client.fetch(`*[_type == "galleryImage"] | order(order asc){ _id, title, image, alt, category }`)
+    client.fetch(`*[_type == "galleryImage"] | order(orderRank asc){ _id, title, image, alt, category }`)
       .then(setImages)
       .catch(() => {})
   }, [])
+
+  useEffect(() => {
+    if (images.length < 2) return
+    const t = setInterval(() => setHeroSlide(p => (p + 1) % images.length), 4000)
+    return () => clearInterval(t)
+  }, [images.length])
 
   const categories = ['All', ...Array.from(new Set(images.map(i => i.category).filter(Boolean)))]
   const filtered = filter === 'All' ? images : images.filter(i => i.category === filter)
@@ -36,14 +43,55 @@ export default function Gallery() {
 
   return (
     <>
-      <div className="page-hero">
-        <div className="container">
-          <p className="section-label">Photo Gallery</p>
-          <h1 className="section-title" style={{ color: 'white', fontFamily: 'var(--font-heading)' }}>Gallery</h1>
-          <p style={{ maxWidth: '480px', margin: '1rem auto 0', color: 'rgba(255,255,255,0.75)', lineHeight: 1.8 }}>
-            Take a look inside and around Inch Beach House.
-          </p>
+      {/* Hero slider */}
+      <div style={{ position: 'relative', height: '65vh', minHeight: '480px', overflow: 'hidden', background: 'var(--navy)', marginTop: '70px' }}>
+        {images.length > 0 ? images.map((img, i) => (
+          <div key={i} style={{
+            position: 'absolute', inset: 0,
+            backgroundImage: `url(${urlFor(img.image).width(1600).url()})`,
+            backgroundSize: 'cover', backgroundPosition: 'center',
+            opacity: i === heroSlide ? 1 : 0,
+            transition: 'opacity 1.2s ease-in-out',
+          }} />
+        )) : (
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(150deg, #0B3D5E 0%, #1A7EA8 60%, #5BB8D4 100%)' }} />
+        )}
+
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(11,61,94,0.2) 0%, rgba(11,61,94,0.65) 100%)' }} />
+
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '2rem' }}>
+          <div style={{ maxWidth: '700px', color: 'white' }}>
+            <p className="section-label" style={{ color: 'var(--gold)', marginBottom: '1rem' }}>Photo Gallery</p>
+            <h1 style={{
+              fontFamily: 'var(--font-heading)',
+              fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+              lineHeight: 1.15, marginBottom: '1.25rem',
+              textShadow: '0 2px 24px rgba(0,0,0,0.4)',
+            }}>
+              Inside Inch Beach House
+            </h1>
+            <p style={{
+              fontSize: 'clamp(0.95rem, 1.6vw, 1.1rem)',
+              color: 'rgba(255,255,255,0.85)', lineHeight: 1.75,
+              textShadow: '0 1px 8px rgba(0,0,0,0.3)',
+            }}>
+              Take a look inside and around the house — click any photo to explore in full screen.
+            </p>
+          </div>
         </div>
+
+        {images.length > 1 && (
+          <div style={{ position: 'absolute', bottom: '1.5rem', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '8px' }}>
+            {images.map((_, i) => (
+              <button key={i} onClick={() => setHeroSlide(i)} style={{
+                width: i === heroSlide ? '28px' : '8px', height: '8px',
+                borderRadius: '4px', border: 'none', cursor: 'pointer', padding: 0,
+                background: i === heroSlide ? 'var(--gold)' : 'rgba(255,255,255,0.4)',
+                transition: 'all 0.3s',
+              }} />
+            ))}
+          </div>
+        )}
       </div>
 
       <section className="section">
@@ -124,9 +172,11 @@ export default function Gallery() {
           }}>✕</button>
 
           <button onClick={e => { e.stopPropagation(); navigate(-1) }} style={{
-            position: 'absolute', left: '1rem',
-            background: 'rgba(255,255,255,0.1)', border: 'none', color: 'white',
-            fontSize: '1.8rem', cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '8px',
+            position: 'absolute', left: '0.75rem',
+            background: 'rgba(255,255,255,0.12)', border: 'none', color: 'white',
+            fontSize: '2rem', cursor: 'pointer', borderRadius: '50%',
+            width: '52px', height: '52px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            backdropFilter: 'blur(4px)',
           }}>‹</button>
 
           <img
@@ -137,9 +187,11 @@ export default function Gallery() {
           />
 
           <button onClick={e => { e.stopPropagation(); navigate(1) }} style={{
-            position: 'absolute', right: '1rem',
-            background: 'rgba(255,255,255,0.1)', border: 'none', color: 'white',
-            fontSize: '1.8rem', cursor: 'pointer', padding: '0.5rem 1rem', borderRadius: '8px',
+            position: 'absolute', right: '0.75rem',
+            background: 'rgba(255,255,255,0.12)', border: 'none', color: 'white',
+            fontSize: '2rem', cursor: 'pointer', borderRadius: '50%',
+            width: '52px', height: '52px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            backdropFilter: 'blur(4px)',
           }}>›</button>
 
           <p style={{

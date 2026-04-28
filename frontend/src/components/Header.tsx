@@ -50,29 +50,40 @@ export default function Header() {
         <button
           onClick={() => setOpen(!open)}
           style={{
-            display: 'none', background: 'none', border: 'none',
-            color: 'white', fontSize: '1.4rem', cursor: 'pointer', lineHeight: 1,
+            background: 'none', border: 'none',
+            color: 'white', fontSize: '1.4rem', cursor: 'pointer',
+            width: '44px', height: '44px', alignItems: 'center', justifyContent: 'center',
+            borderRadius: '6px', transition: 'background 0.2s',
           }}
           className="show-mobile"
-          aria-label="Menu"
+          aria-label={open ? 'Close menu' : 'Open menu'}
         >
           {open ? '✕' : '☰'}
         </button>
       </div>
 
       {open && (
-        <div style={{ background: 'rgba(11, 61, 94, 0.99)', padding: '1rem 1.5rem 2rem' }}>
+        <div style={{ background: '#0a3555', borderTop: '1px solid rgba(255,255,255,0.08)', padding: '0.5rem 1.5rem 1.5rem' }}>
           {navItems.map(item => (
             <Link key={item.path} to={item.path} onClick={() => setOpen(false)} style={{
-              display: 'block',
+              display: 'flex', alignItems: 'center',
               color: pathname === item.path ? 'var(--gold)' : 'rgba(255,255,255,0.85)',
-              padding: '0.85rem 0',
-              fontSize: '0.9rem', letterSpacing: '1px', textTransform: 'uppercase',
-              borderBottom: '1px solid rgba(255,255,255,0.08)',
+              padding: '0.9rem 0',
+              fontSize: '0.88rem', letterSpacing: '1px', textTransform: 'uppercase', fontWeight: 500,
+              borderBottom: '1px solid rgba(255,255,255,0.07)',
+              gap: '0.75rem',
             }}>
+              {pathname === item.path && (
+                <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'var(--gold)', flexShrink: 0 }} />
+              )}
               {item.label}
             </Link>
           ))}
+          <div style={{ marginTop: '1.25rem' }}>
+            <Link to="/enquiry" onClick={() => setOpen(false)} className="btn btn-gold" style={{ display: 'block', textAlign: 'center' }}>
+              Make an Enquiry
+            </Link>
+          </div>
         </div>
       )}
     </header>

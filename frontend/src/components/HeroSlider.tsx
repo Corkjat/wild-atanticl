@@ -6,7 +6,7 @@ export default function HeroSlider() {
   const [current, setCurrent] = useState(0)
 
   useEffect(() => {
-    client.fetch(`*[_type == "heroImage"] | order(order asc){ image, alt }`)
+    client.fetch(`*[_type == "heroImage"] | order(orderRank asc){ image, alt }`)
       .then(setImages)
       .catch(() => {})
   }, [])
@@ -18,7 +18,7 @@ export default function HeroSlider() {
   }, [images.length])
 
   return (
-    <div style={{ position: 'relative', height: '100vh', overflow: 'hidden', background: 'var(--navy)' }}>
+    <div style={{ position: 'relative', height: '100svh', minHeight: '560px', overflow: 'hidden', background: 'var(--navy)' }}>
       {images.length > 0 ? images.map((img, i) => (
         <div key={i} style={{
           position: 'absolute', inset: 0,
@@ -64,7 +64,7 @@ export default function HeroSlider() {
           }}>
             A newly renovated 4-bedroom home on the Wild Atlantic Way. Sleeps 8.
           </p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div className="hero-buttons" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href="/house" className="btn btn-gold">Discover the House</a>
             <a href="/enquiry" className="btn btn-outline">Make an Enquiry</a>
           </div>

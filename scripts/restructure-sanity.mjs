@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 
 const client = createClient({
-  projectId: 'pnfbtu62',
+  projectId: 'xb9llqp5',
   dataset: 'production',
   token: process.env.SANITY_TOKEN,
   useCdn: false,

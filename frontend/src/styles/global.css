@@ -83,13 +83,13 @@ button { font-family: var(--font-body); }
 }
 
 .btn-gold { background: var(--gold); color: var(--white); }
-.btn-gold:hover { background: #b8994e; }
+.btn-gold:hover { background: #a86826; }
 
 .btn-outline { background: transparent; color: var(--white); border-color: rgba(255,255,255,0.7); }
 .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.12); }
 
 .btn-navy { background: var(--navy); color: var(--white); }
-.btn-navy:hover { background: #0a3050; }
+.btn-navy:hover { background: #0a2e39; }
 
 .page-hero {
   background: linear-gradient(150deg, var(--navy) 0%, var(--ocean) 100%);

@@ -14,7 +14,7 @@ const activities = [
     key: 'annascaul-village',
     title: 'Annascaul Village', distance: '2km',
     bg: 'var(--navy)',
-    description: 'A charming traditional Irish village with welcoming pubs, great food, and a relaxed atmosphere. Home to the legendary Dan Foley\'s bar, a true Kerry institution.',
+    description: "A charming traditional Irish village with welcoming pubs, great food, and a relaxed atmosphere. Home to the legendary Dan Foley's bar, a true Kerry institution.",
     items: ['Traditional Irish pubs', 'Cafés and local food', 'Relaxed, welcoming atmosphere'],
   },
   {
@@ -28,7 +28,7 @@ const activities = [
     key: 'dingle-peninsula',
     title: 'Dingle Peninsula', distance: '20 mins',
     bg: '#1a3d5e',
-    description: 'One of Ireland\'s most spectacular peninsulas. Drive the famous Slea Head Drive for breathtaking coastal scenery, or explore Dingle town with its restaurants, music, and culture.',
+    description: "One of Ireland's most spectacular peninsulas. Drive the famous Slea Head Drive for breathtaking coastal scenery, or explore Dingle town with its restaurants, music, and culture.",
     items: ['Slea Head Drive', 'Breathtaking coastal scenery', 'Restaurants, music, and culture'],
   },
 ]
@@ -76,53 +76,50 @@ export default function Activities() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
             {activities.map((a, i) => {
               const imgs = activityImages[a.key] || []
+              const img = imgs[0]
+              const labelFirst = i % 2 === 0
               return (
-                <div key={i} style={{ borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 20px rgba(11,61,94,0.1)' }}>
-                  <div className="activity-card" style={{
-                    display: 'grid',
-                    gridTemplateColumns: i % 2 === 0 ? '240px 1fr' : '1fr 240px',
+                <div key={i} className="activity-card" style={{
+                  display: 'grid',
+                  gridTemplateColumns: '220px 1fr 1fr',
+                  borderRadius: '16px', overflow: 'hidden',
+                  boxShadow: '0 4px 20px rgba(11,61,94,0.1)',
+                  minHeight: '260px',
+                }}>
+                  <div className="activity-card-label" style={{
+                    background: a.bg, padding: '2.5rem 2rem',
+                    textAlign: 'center', color: 'white',
+                    display: 'flex', flexDirection: 'column',
+                    alignItems: 'center', justifyContent: 'center',
+                    order: labelFirst ? 0 : 2,
                   }}>
-                    <div className="activity-card-label" style={{
-                      background: a.bg, padding: '2.5rem 2rem',
-                      textAlign: 'center', color: 'white',
-                      display: 'flex', flexDirection: 'column',
-                      alignItems: 'center', justifyContent: 'center',
-                      order: i % 2 === 0 ? 0 : 1,
-                    }}>
-                      <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem', marginBottom: '0.5rem' }}>{a.title}</h3>
-                      <p style={{ fontSize: '0.75rem', letterSpacing: '2px', textTransform: 'uppercase', opacity: 0.7 }}>
-                        {a.distance} away
-                      </p>
-                    </div>
-                    <div className="activity-card-content" style={{
-                      padding: '2rem', background: 'var(--pale)',
-                      order: i % 2 === 0 ? 1 : 0,
-                    }}>
-                      <p style={{ color: 'var(--muted)', lineHeight: 1.8, marginBottom: '1.25rem', fontSize: '0.92rem' }}>{a.description}</p>
-                      <ul className="check-list">
-                        {a.items.map((item, j) => <li key={j}>{item}</li>)}
-                      </ul>
-                    </div>
+                    <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem', marginBottom: '0.5rem' }}>{a.title}</h3>
+                    <p style={{ fontSize: '0.75rem', letterSpacing: '2px', textTransform: 'uppercase', opacity: 0.7 }}>
+                      {a.distance} away
+                    </p>
                   </div>
-
-                  {imgs.length > 0 && (
-                    <div className="activity-images" style={{
-                      display: 'grid',
-                      gridTemplateColumns: `repeat(${Math.min(imgs.length, 4)}, 1fr)`,
-                      height: '180px',
-                    }}>
-                      {imgs.slice(0, 4).map((img, j) => (
-                        <div key={j} style={{ overflow: 'hidden' }}>
-                          <img
-                            src={urlFor(img.image).width(400).height(180).url()}
-                            alt={img.alt || a.title}
-                            loading="lazy"
-                            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                  <div style={{ order: 1, overflow: 'hidden', background: 'var(--border)' }}>
+                    {img ? (
+                      <img
+                        src={urlFor(img.image).width(600).height(400).fit('crop').url()}
+                        alt={img.alt || a.title}
+                        loading="lazy"
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      />
+                    ) : (
+                      <div style={{ width: '100%', height: '100%', background: `${a.bg}22`, minHeight: '260px' }} />
+                    )}
+                  </div>
+                  <div className="activity-card-content" style={{
+                    padding: '2.5rem 2rem', background: 'var(--pale)',
+                    display: 'flex', flexDirection: 'column', justifyContent: 'center',
+                    order: labelFirst ? 2 : 0,
+                  }}>
+                    <p style={{ color: 'var(--muted)', lineHeight: 1.8, marginBottom: '1.25rem', fontSize: '0.92rem' }}>{a.description}</p>
+                    <ul className="check-list">
+                      {a.items.map((item, j) => <li key={j}>{item}</li>)}
+                    </ul>
+                  </div>
                 </div>
               )
             })}

@@ -36,7 +36,7 @@ export default function Footer() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', fontSize: '0.88rem', color: 'rgba(255,255,255,0.7)' }}>
             <p>Inch West, Annascaul,<br />Co. Kerry, V92P9E8</p>
             <p>Host: Michelle</p>
-            <a href="tel:0857134017" style={{ color: 'rgba(255,255,255,0.7)' }}>085 713 4017</a>
+            <a href="tel:+353857134017" style={{ color: 'rgba(255,255,255,0.7)' }}>(+353) 85 713 4017</a>
             <a href="mailto:info@inchbeachhouse.ie" style={{ color: 'rgba(255,255,255,0.7)' }}>info@inchbeachhouse.ie</a>
           </div>
         </div>

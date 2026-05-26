@@ -125,7 +125,7 @@ export default function Enquiry() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                   {[
                     { label: 'Host', value: 'Michelle' },
-                    { label: 'Phone', value: '085 713 4017', href: 'tel:0857134017' },
+                    { label: 'Phone', value: '(+353) 85 713 4017', href: 'tel:+353857134017' },
                     { label: 'Email', value: 'info@inchbeachhouse.ie', href: 'mailto:info@inchbeachhouse.ie' },
                     { label: 'Address', value: 'Inch West, Annascaul, Co. Kerry, V92P9E8' },
                   ].map((item, i) => (
@@ -140,22 +140,6 @@ export default function Enquiry() {
                 </div>
               </div>
 
-              <div style={{ background: 'var(--navy)', padding: '2rem', borderRadius: '16px', textAlign: 'center', color: 'white' }}>
-                <h3 style={{ color: 'var(--gold)', marginBottom: '0.75rem', fontFamily: 'var(--font-heading)', fontSize: '1.1rem' }}>
-                  Book on Airbnb
-                </h3>
-                <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.85rem', marginBottom: '1.5rem', lineHeight: 1.7 }}>
-                  For instant confirmation, book directly via Airbnb.
-                </p>
-                <a
-                  href="https://www.airbnb.com"
-                  target="_blank" rel="noopener noreferrer"
-                  className="btn btn-gold"
-                  style={{ display: 'block', textAlign: 'center' }}
-                >
-                  View on Airbnb
-                </a>
-              </div>
             </div>
           </div>
         </div>

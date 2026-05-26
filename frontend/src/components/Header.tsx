@@ -6,6 +6,7 @@ const navItems = [
   { label: 'The House', path: '/house' },
   { label: 'Activities', path: '/activities' },
   { label: 'Gallery', path: '/gallery' },
+  { label: 'Testimonials', path: '/#testimonials' },
   { label: 'Enquiry', path: '/enquiry' },
 ]
 

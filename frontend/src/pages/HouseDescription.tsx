@@ -9,7 +9,7 @@ const amenities = [
   },
   {
     title: 'Kitchen & Dining',
-    items: ['Oven, freezer, toaster', 'Cooking basics (pots, pans, oil, salt & pepper)', 'Crockery, cutlery, wine glasses', 'Dining area and outdoor dining space'],
+    items: ['Fridge', 'Oven, freezer, toaster', 'Cooking basics (pots, pans, oil, salt & pepper)', 'Crockery, cutlery, wine glasses', 'Dining area and outdoor dining space'],
   },
   {
     title: 'Bedrooms & Laundry',
@@ -17,11 +17,11 @@ const amenities = [
   },
   {
     title: 'Bathrooms',
-    items: ['Bath and hot water', 'Hairdryer', 'Clean, modern finishes'],
+    items: ['Bath & 3 Showers, hot water', 'Hairdryer', 'Clean, modern finishes'],
   },
   {
     title: 'Family Friendly',
-    items: ['Travel cot (on request)', 'High chair (on request)'],
+    items: ['Travel cot (on request)', 'Family Board Games and Toys'],
   },
   {
     title: 'Outdoor Space',

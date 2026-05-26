@@ -67,6 +67,7 @@ export default function HeroSlider() {
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href="/house" className="btn btn-gold">Discover the House</a>
             <a href="/enquiry" className="btn btn-outline">Make an Enquiry</a>
+            <a href="#testimonials" className="btn btn-outline">Testimonials</a>
           </div>
         </div>
       </div>

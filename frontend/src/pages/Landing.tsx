@@ -105,11 +105,11 @@ export default function Landing() {
             </div>
             <div style={{ borderRadius: '14px', overflow: 'hidden', boxShadow: '0 8px 30px rgba(11,61,94,0.15)' }}>
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10000!2d-10.063!3d52.147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x485b2f4567890abc%3A0x1234567890!2sInch%2C%20Co.%20Kerry%2C%20Ireland!5e0!3m2!1sen!2sie!4v1"
+                src="https://maps.google.com/maps?q=V92P9E8,+Ireland&t=&z=15&ie=UTF8&iwloc=B&output=embed"
                 width="100%" height="360"
                 style={{ border: 0, display: 'block' }}
                 loading="lazy"
-                title="Inch Beach location"
+                title="Inch Beach House location"
               />
             </div>
           </div>
@@ -117,7 +117,7 @@ export default function Landing() {
       </section>
 
       {/* Testimonials */}
-      <section className="section" style={{ background: 'var(--navy)' }}>
+      <section id="testimonials" className="section" style={{ background: 'var(--navy)', scrollMarginTop: '70px' }}>
         <div className="container" style={{ textAlign: 'center' }}>
           <p className="section-label">Guest Reviews</p>
           <h2 className="section-title white">What Our Guests Say</h2>
@@ -162,7 +162,7 @@ export default function Landing() {
           }}>
             {[
               { label: 'Address', lines: ['Inch West, Annascaul', 'Co. Kerry, V92P9E8'] },
-              { label: 'Phone', lines: ['Michelle', '085 713 4017'] },
+              { label: 'Phone', lines: ['Michelle', '(+353) 85 713 4017'] },
               { label: 'Email', lines: ['info@inchbeachhouse.ie'] },
             ].map((c, i) => (
               <div key={i} style={{

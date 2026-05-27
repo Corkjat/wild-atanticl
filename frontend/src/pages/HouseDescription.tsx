@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { client, urlFor } from '../lib/sanity'
+import { useSEO } from '../hooks/useSEO'
 
 const amenities = [
   {
@@ -41,6 +42,11 @@ const stats = [
 ]
 
 export default function HouseDescription() {
+  useSEO({
+    title: 'The House | Inch Beach Holiday Home, Kerry · 4 Bedrooms',
+    description: 'Explore our beautifully renovated 4-bedroom holiday home near Inch Beach, Dingle. Panoramic Atlantic views, modern kitchen, private garden. Sleeps 8.',
+    canonical: 'https://inchbeachhouse.com/house',
+  })
   const [images, setImages] = useState<any[]>([])
   const [current, setCurrent] = useState(0)
 

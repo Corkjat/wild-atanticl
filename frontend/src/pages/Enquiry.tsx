@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSEO } from '../hooks/useSEO'
 
 type FormState = {
   name: string
@@ -10,6 +11,11 @@ type FormState = {
 }
 
 export default function Enquiry() {
+  useSEO({
+    title: 'Book Inch Beach House | Holiday Rental Enquiry, Kerry',
+    description: 'Enquire about booking Inch Beach House on the Dingle Peninsula, Kerry. Contact Michelle directly or send a message. We\'d love to welcome you.',
+    canonical: 'https://inchbeachhouse.com/enquiry',
+  })
   const [form, setForm] = useState<FormState>({ name: '', email: '', checkIn: '', checkOut: '', guests: '', message: '' })
   const [sent, setSent] = useState(false)
 

@@ -2,6 +2,34 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import HeroSlider from '../components/HeroSlider'
 import { client } from '../lib/sanity'
+import { useSEO } from '../hooks/useSEO'
+
+const faqs = [
+  {
+    q: 'How far is Inch Beach House from Dingle town?',
+    a: 'Inch Beach House is approximately 20 minutes by car from Dingle town (about 18km), making it the perfect base for exploring the Dingle Peninsula, Slea Head Drive, and Conor Pass.',
+  },
+  {
+    q: 'Is Inch Beach safe for swimming?',
+    a: 'Yes. Inch Beach is a Blue Flag beach with lifeguard patrols during the summer months. The beach stretches 5km with designated swimming areas and a gently sloping sandy bottom, making it safe for families.',
+  },
+  {
+    q: 'What is the nearest airport to Inch Beach House?',
+    a: 'Kerry Airport (Farranfore) is just 25 minutes away. Cork Airport and Shannon Airport are both under 2 hours. Dublin Airport is approximately 3.5 hours by car.',
+  },
+  {
+    q: 'How many guests does Inch Beach House sleep?',
+    a: 'Inch Beach House sleeps 8 guests across 4 bedrooms. A travel cot is available on request for younger children.',
+  },
+  {
+    q: 'Is there parking at Inch Beach House?',
+    a: 'Yes, free private parking is available on the premises for all guests.',
+  },
+  {
+    q: 'Is Inch Beach House suitable for families with young children?',
+    a: 'Yes. We have a travel cot available on request, family board games and toys, a large private garden, and we are just 2km from Inch Beach with its safe, shallow swimming areas.',
+  },
+]
 
 const highlights = [
   'Uninterrupted sea & mountain views',
@@ -39,6 +67,11 @@ const fallbackTestimonials = [
 ]
 
 export default function Landing() {
+  useSEO({
+    title: 'Inch Beach House | Holiday Rental, Dingle Peninsula, Kerry',
+    description: 'Stunning 4-bedroom holiday home on the Wild Atlantic Way. Panoramic views over Inch Beach, Kerry. Sleeps 8. Book direct with host Michelle.',
+    canonical: 'https://inchbeachhouse.com/',
+  })
   const [testimonials, setTestimonials] = useState(fallbackTestimonials)
   const [active, setActive] = useState(0)
 
@@ -146,6 +179,26 @@ export default function Landing() {
                 }} />
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="section">
+        <div className="container">
+          <p className="section-label" style={{ textAlign: 'center' }}>Common Questions</p>
+          <h2 className="section-title" style={{ textAlign: 'center' }}>FAQs</h2>
+          <div className="divider center" />
+          <div style={{ maxWidth: '760px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {faqs.map((faq, i) => (
+              <div key={i} style={{
+                background: 'var(--pale)', borderRadius: '12px',
+                padding: '1.5rem 2rem', borderLeft: '4px solid var(--gold)',
+              }}>
+                <h3 style={{ color: 'var(--navy)', fontSize: '1rem', fontFamily: 'var(--font-heading)', marginBottom: '0.6rem' }}>{faq.q}</h3>
+                <p style={{ color: 'var(--muted)', fontSize: '0.92rem', lineHeight: 1.7 }}>{faq.a}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

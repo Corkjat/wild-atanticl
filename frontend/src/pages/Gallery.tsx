@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react'
 import { client, urlFor } from '../lib/sanity'
+import { useSEO } from '../hooks/useSEO'
 
 export default function Gallery() {
+  useSEO({
+    title: 'Photo Gallery | Inch Beach House, Dingle Peninsula, Kerry',
+    description: 'Browse photos of Inch Beach House — a stunning 4-bedroom holiday rental on the Wild Atlantic Way, Kerry. Panoramic sea views and modern interiors.',
+    canonical: 'https://inchbeachhouse.com/gallery',
+  })
   const [images, setImages] = useState<any[]>([])
   const [selected, setSelected] = useState<number | null>(null)
   const [filter, setFilter] = useState('All')

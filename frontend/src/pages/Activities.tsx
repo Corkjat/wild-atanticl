@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { client, urlFor } from '../lib/sanity'
+import { useSEO } from '../hooks/useSEO'
 
 const activities = [
   {
@@ -43,6 +44,11 @@ const outdoorActivities = [
 ]
 
 export default function Activities() {
+  useSEO({
+    title: 'Things to Do Near Inch Beach | Dingle Peninsula, Kerry',
+    description: 'Discover the best activities near Inch Beach House — surfing, Slea Head Drive, Dingle town pubs, Conor Pass and walking trails. Stay at Inch Beach House.',
+    canonical: 'https://inchbeachhouse.com/activities',
+  })
   const [activityImages, setActivityImages] = useState<Record<string, any[]>>({})
 
   useEffect(() => {
@@ -142,6 +148,113 @@ export default function Activities() {
                 <p style={{ color: 'var(--navy)', fontSize: '0.9rem', fontWeight: 600 }}>{a}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Long-tail content sections */}
+      <section className="section">
+        <div className="container">
+          <p className="section-label" style={{ textAlign: 'center' }}>Plan Your Days</p>
+          <h2 className="section-title" style={{ textAlign: 'center' }}>Explore the Dingle Peninsula</h2>
+          <div className="divider center" />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '3.5rem', maxWidth: '820px', margin: '0 auto' }}>
+
+            <div>
+              <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--navy)', fontSize: '1.35rem', marginBottom: '1rem' }}>
+                Surfing lessons at Inch Beach — what to expect
+              </h2>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, marginBottom: '0.85rem', fontSize: '0.95rem' }}>
+                Inch Beach faces directly into the Atlantic swell, making it one of Ireland's most consistent surf spots. The beach picks up waves year-round, with the best conditions typically from September through April. During summer, surf schools operate from the beach offering lessons and board hire for all abilities.
+              </p>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, marginBottom: '0.85rem', fontSize: '0.95rem' }}>
+                The rolling, sandy-bottomed waves are forgiving for beginners and the 5km stretch means plenty of room even on busy days. Water temperatures in summer average 14–16°C, so a full wetsuit is always recommended — most surf schools include one in lesson packages.
+              </p>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, fontSize: '0.95rem' }}>
+                Staying at Inch Beach House puts you just 2km from the surf — close enough to check conditions from the window before you get in the car.{' '}
+                <Link to="/enquiry" style={{ color: 'var(--ocean)', fontWeight: 600 }}>Book your stay</Link> and wake up to waves on your doorstep.
+              </p>
+            </div>
+
+            <div>
+              <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--navy)', fontSize: '1.35rem', marginBottom: '1rem' }}>
+                Slea Head Drive from Inch Beach — route, distance and tips
+              </h2>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, marginBottom: '0.85rem', fontSize: '0.95rem' }}>
+                The Slea Head Drive is a 30km circular route starting and ending in Dingle town, tracing the westernmost tip of the peninsula. From Inch Beach House, Dingle town is just 20 minutes by car — making this one of the easiest and most rewarding day trips you can do.
+              </p>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, marginBottom: '0.85rem', fontSize: '0.95rem' }}>
+                The route passes Ventry Harbour (a sheltered beach perfect for a swim), the ancient Fahan Beehive Huts, the dramatic cliffs at Slea Head with views across to the Blasket Islands, and the village of Dunquin — one of the most westerly points in Europe. Allow at least 3–4 hours to stop and explore properly. The Blasket Islands Visitor Centre at Dunquin is well worth a stop.
+              </p>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, fontSize: '0.95rem' }}>
+                Drive the route heading westward in the late afternoon for the best light on the Blaskets.{' '}
+                <Link to="/enquiry" style={{ color: 'var(--ocean)', fontWeight: 600 }}>Book your stay at Inch Beach House</Link> and make Slea Head your first full day.
+              </p>
+            </div>
+
+            <div>
+              <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--navy)', fontSize: '1.35rem', marginBottom: '1rem' }}>
+                Conor Pass drive — Ireland's highest mountain road, 25 mins from Inch
+              </h2>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, marginBottom: '0.85rem', fontSize: '0.95rem' }}>
+                At 456 metres, Conor Pass is the highest mountain pass in Ireland and the views from the top are genuinely breathtaking — Dingle Bay and Brandon Bay spread out below, with the Maharees Peninsula to the north and the Atlantic beyond. On a clear day you can see the Shannon Estuary. From Inch Beach House it's just 25 minutes by car.
+              </p>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, marginBottom: '0.85rem', fontSize: '0.95rem' }}>
+                The road is narrow — if you meet oncoming traffic one car must reverse to a passing point — so take your time and enjoy the scenery. A small car park at the summit lets you get out and walk along the ridge. Best tackled mid-morning before the coaches arrive.
+              </p>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, fontSize: '0.95rem' }}>
+                Combine Conor Pass with a visit to Dingle town for a perfect full day out.{' '}
+                <Link to="/enquiry" style={{ color: 'var(--ocean)', fontWeight: 600 }}>Make an enquiry</Link> and we'll share all our local tips on arrival.
+              </p>
+            </div>
+
+            <div>
+              <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--navy)', fontSize: '1.35rem', marginBottom: '1rem' }}>
+                Best pubs in Dingle town with live traditional music
+              </h2>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, marginBottom: '0.85rem', fontSize: '0.95rem' }}>
+                Dingle is one of the finest towns in Ireland for traditional music. Dick Mack's on Green Street is the most famous — a centuries-old leather workshop turned pub with a tiny snug and regular trad sessions. John Benny's on Strand Street is beloved by locals and runs sessions most evenings. An Droichead Beag ("The Small Bridge") is another stalwart, particularly lively at weekends.
+              </p>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, marginBottom: '0.85rem', fontSize: '0.95rem' }}>
+                Sessions typically start around 9pm and run until midnight or later. Most pubs serve food until 9pm and the atmosphere is unhurried, warm, and full of genuine character — not a tourist performance but the real thing.
+              </p>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, fontSize: '0.95rem' }}>
+                Dingle is 20 minutes from the house — close enough for an evening out and a taxi back.{' '}
+                <Link to="/enquiry" style={{ color: 'var(--ocean)', fontWeight: 600 }}>Book your Kerry break</Link> and let the music be your evening entertainment.
+              </p>
+            </div>
+
+            <div>
+              <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--navy)', fontSize: '1.35rem', marginBottom: '1rem' }}>
+                Where to eat the best seafood in Dingle
+              </h2>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, marginBottom: '0.85rem', fontSize: '0.95rem' }}>
+                Dingle has more excellent restaurants per head than almost anywhere in Ireland. Out of the Blue on the waterfront is the most celebrated — they serve only fish landed that morning, there is no set menu (the catch dictates the dishes daily), and they close if the boats don't go out. Booking ahead is essential. The Chart House on the Mall is a beautiful stone-walled restaurant serving fresh Kerry produce including outstanding Atlantic seafood and local lamb.
+              </p>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, marginBottom: '0.85rem', fontSize: '0.95rem' }}>
+                For something more casual, Benner's Bar does excellent chowder and fish and chips. Murphy's Ice Cream on Strand Street is famous across Ireland — the brown bread ice cream is not to be missed. Annascaul village, just 2km from the house, also has good local options including the South Pole Inn (named after Annascaul native and Antarctic explorer Tom Crean).
+              </p>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, fontSize: '0.95rem' }}>
+                <Link to="/enquiry" style={{ color: 'var(--ocean)', fontWeight: 600 }}>Book Inch Beach House</Link> and we'll share our full restaurant recommendations on arrival.
+              </p>
+            </div>
+
+            <div>
+              <h2 style={{ fontFamily: 'var(--font-heading)', color: 'var(--navy)', fontSize: '1.35rem', marginBottom: '1rem' }}>
+                Family-friendly beaches near Dingle Peninsula — distances from Inch Beach House
+              </h2>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, marginBottom: '0.85rem', fontSize: '0.95rem' }}>
+                Inch Beach itself (2km from the house) is the obvious starting point — 5km of golden sand, Blue Flag status, lifeguards in summer, a beach café, and gently sloping water ideal for young children and confident swimmers alike. Dogs are welcome outside the designated bathing area.
+              </p>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, marginBottom: '0.85rem', fontSize: '0.95rem' }}>
+                Ventry Beach (about 25 minutes away) is a sheltered horseshoe bay with very calm water — perfect for young children and nervous swimmers. Coumeenoole Beach near Slea Head (35 minutes) is more dramatic with stunning clifftop scenery, though better suited to experienced swimmers. Banna Strand in north Kerry (45 minutes) is another long Blue Flag beach popular with families.
+              </p>
+              <p style={{ color: 'var(--muted)', lineHeight: 1.85, fontSize: '0.95rem' }}>
+                Inch Beach House has a large private garden for the evenings when little ones need to run around.{' '}
+                <Link to="/enquiry" style={{ color: 'var(--ocean)', fontWeight: 600 }}>Book your family holiday in Kerry</Link> — travel cot and board games available on request.
+              </p>
+            </div>
+
           </div>
         </div>
       </section>
